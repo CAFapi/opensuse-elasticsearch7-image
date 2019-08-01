@@ -2,7 +2,7 @@
 ${version-number}
 
 #### New Features
-- None
+- Initial release
 
 #### Known Issues
 - None
