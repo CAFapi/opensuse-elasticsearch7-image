@@ -27,7 +27,7 @@
     <packaging>pom</packaging>
 
     <name>openSUSE Elasticsearch7 image</name>
-    <description>An openSUSE-based image which includes Elasticsearch version 7.2.0.</description>
+    <description>An openSUSE-based image which includes Elasticsearch version 7</description>
     <url>https://github.com/CAFapi/opensuse-elasticsearch7-image</url>
 
     <inceptionYear>2019</inceptionYear>
