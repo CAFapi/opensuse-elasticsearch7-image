@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-# Reference the official Elasticsearch 6 image
+# Reference the official Elasticsearch 7 image
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.2.0 AS es7-image
 
 #
