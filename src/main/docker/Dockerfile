@@ -20,7 +20,7 @@ FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.2.0 AS es7-image
 #
 # The actual image definition
 #
-FROM cafapi/opensuse-jre8:1
+FROM cafinternal/prereleases:opensuse-jre8-1.8.0-SNAPSHOT
 
 ENV ELASTIC_CONTAINER=true
 
