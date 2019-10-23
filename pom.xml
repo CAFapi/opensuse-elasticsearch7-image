@@ -75,7 +75,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.cafapi</groupId>
+            <groupId>com.github.cafapi.logging</groupId>
             <artifactId>caf-logging-log4j2</artifactId>
             <version>1.0.0-SCMOD-7476-SNAPSHOT</version>
             <exclusions>
