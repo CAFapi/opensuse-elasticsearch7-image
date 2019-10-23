@@ -47,7 +47,7 @@ RUN ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dht
     /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 # Configure logging
-COPY logging.yml /usr/share/elasticsearch/config
+COPY log4j2.properties /usr/share/elasticsearch/config
 COPY /maven/*.jar /usr/share/elasticsearch/lib/
 
 ENV PATH=/usr/share/elasticsearch/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
