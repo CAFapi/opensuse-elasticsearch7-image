@@ -46,6 +46,10 @@ COPY --from=es7-image --chown=1000:0 /usr/share/elasticsearch/ /usr/share/elasti
 RUN ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
     /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
+# Configure logging
+COPY logging.yml /usr/share/elasticsearch/config
+COPY /maven/*.jar /usr/share/elasticsearch/lib/
+
 ENV PATH=/usr/share/elasticsearch/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 COPY --from=es7-image --chown=1000:0 /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
@@ -55,12 +59,6 @@ RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
 
 COPY scripts/ /opt/elasticsearch/scripts/
 RUN chmod +x /opt/elasticsearch/scripts/*
-
-# Configure logging
-COPY /maven/caf-*.jar /usr/share/elasticsearch/lib/
-COPY /maven/commons-*.jar /usr/share/elasticsearch/lib/
-COPY /maven/util-*.jar /usr/share/elasticsearch/lib/
-COPY /maven/log4j2.properties /usr/share/elasticsearch/config
 
 # Startup Elasticsearch and expose ports
 EXPOSE 9200 9300
