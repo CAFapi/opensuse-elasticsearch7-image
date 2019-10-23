@@ -78,35 +78,17 @@
             <groupId>com.github.cafapi</groupId>
             <artifactId>caf-logging-log4j2</artifactId>
             <version>1.0.0-SCMOD-7476-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Unpack the base worker configuration files -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>process-config-files</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.github.cafapi</groupId>
-                                    <artifactId>caf-logging-log4j2</artifactId>
-                                    <outputDirectory>${project.build.directory}/config-files</outputDirectory>
-                                    <includes>log4j2.*</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
