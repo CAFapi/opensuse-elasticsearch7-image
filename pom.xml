@@ -139,12 +139,6 @@
                                                 <useProjectArtifact>false</useProjectArtifact>
                                             </dependencySet>
                                         </dependencySets>
-                                        <fileSets>
-                                            <fileSet>
-                                                <directory>${project.build.directory}/config-files</directory>
-                                                <outputDirectory>./</outputDirectory>
-                                            </fileSet>
-                                        </fileSets>
                                     </inline>
                                 </assembly>
                             </build>
