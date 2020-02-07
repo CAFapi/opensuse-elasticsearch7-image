@@ -15,7 +15,7 @@
 #
 
 # Reference the official Elasticsearch 7 image
-FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.2.0 AS es7-image
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.3.2 AS es7-image
 
 #
 # The actual image definition
