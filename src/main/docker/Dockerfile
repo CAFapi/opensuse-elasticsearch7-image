@@ -65,6 +65,7 @@ RUN chmod +x /opt/elasticsearch/scripts/*
 
 # Startup Elasticsearch and expose ports
 EXPOSE 9200 9300
+USER elasticsearch
 CMD /opt/elasticsearch/scripts/start.sh
 
 # Tag the image
