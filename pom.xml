@@ -101,6 +101,20 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>docker-push</id>
                         <phase>deploy</phase>
                         <goals>
@@ -141,6 +155,27 @@
                                     </inline>
                                 </assembly>
                             </build>
+                            <run>
+                                <ports>
+                                    <port>${es.http.port}:9200</port>
+                                    <port>${es.client.port}:9300</port>
+                                    <port>${es.debug.port}:9010</port>
+                                </ports>
+                                <env>
+                                    <ES_JAVA_OPTS>-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010 -Dcom.sun.management.jmxremote.rmi.port=9010 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</ES_JAVA_OPTS>
+                                    <discovery.type>single-node</discovery.type>
+                                </env>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <wait>
+                                    <http>
+                                        <url>http://${docker.host.address}:${es.http.port}</url>
+                                    </http>
+                                    <time>300000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
                         </image>
                     </images>
                     <verbose>true</verbose>
