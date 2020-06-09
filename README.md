@@ -1,6 +1,6 @@
 # openSUSE and Elasticsearch 7 image
 
-This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) to build a pre-configured Elasticsearch 7 Docker image.
+This project builds on the openSUSE Java 11 image [here](https://github.com/CAFapi/opensuse-java11-images) to build a pre-configured Elasticsearch 7 Docker image.
 
 It can be used as a base image for any projects which use Elasticsearch.
 
