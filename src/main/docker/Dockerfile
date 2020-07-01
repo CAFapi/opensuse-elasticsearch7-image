@@ -20,7 +20,7 @@ FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
 #
 # The actual image definition
 #
-FROM cafinternal/prereleases:opensuse-jre11-3.0.0-SNAPSHOT
+FROM cafapi/opensuse-jre11:3
 
 RUN zypper -n refresh && \
     zypper -n update
