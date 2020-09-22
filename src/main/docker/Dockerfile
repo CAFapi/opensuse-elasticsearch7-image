@@ -14,13 +14,17 @@
 # limitations under the License.
 #
 
+# Docker registries
+ARG DOCKER_HUB_PRIVATE=docker.io
+ARG DOCKER_HUB_PUBLIC=docker.io
+
 # Reference the official Elasticsearch 7 image
 FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
 
 #
 # The actual image definition
 #
-FROM cafinternal/prereleases:opensuse-jre11-3.1.0-SNAPSHOT
+FROM ${DOCKER_HUB_PRIVATE}/cafinternal/prereleases:opensuse-jre11-3.1.0-SNAPSHOT
 
 RUN zypper -n refresh && \
     zypper -n update
