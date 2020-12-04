@@ -26,7 +26,8 @@ FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
 #
 FROM ${DOCKER_HUB_PRIVATE}/cafinternal/prereleases:opensuse-jre11-3.2.0-SNAPSHOT
 
-RUN zypper -n refresh && \
+RUN zypper al curl postgresql dejavu-fonts java-11-openjdk && \
+    zypper -n refresh && \
     zypper -n update
 
 ENV ELASTIC_CONTAINER=true
