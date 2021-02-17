@@ -30,10 +30,9 @@ RUN zypper -n refresh && \
 
 ENV ELASTIC_CONTAINER=true
 
-COPY --from=es7-image /usr/share/elasticsearch/jdk/ /usr/share/elasticsearch/jdk/
 # Copy java certs and set link to them
 COPY --from=es7-image /etc/pki/ca-trust /etc/pki/ca-trust
-RUN ln -sf /etc/pki/ca-trust/extracted/java/cacerts /usr/share/elasticsearch/jdk/lib/security/cacerts
+RUN ln -sf /etc/pki/ca-trust/extracted/java/cacerts /usr/lib64/jvm/java-11-openjdk-11/lib/security/cacerts
 
 # Install packages
 RUN zypper -n install which hostname netcat-openbsd unzip wget
