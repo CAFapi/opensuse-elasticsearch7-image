@@ -30,9 +30,7 @@ RUN zypper -n refresh && \
 
 ENV ELASTIC_CONTAINER=true
 
-# Copy java certs and set link to them
 COPY --from=es7-image /etc/pki/ca-trust /etc/pki/ca-trust
-RUN ln -sf /etc/pki/ca-trust/extracted/java/cacerts /usr/lib64/jvm/java-11-openjdk-11/lib/security/cacerts
 
 # Install packages
 RUN zypper -n install which hostname netcat-openbsd unzip wget
@@ -61,6 +59,8 @@ COPY --from=es7-image --chown=1000:0 /usr/local/bin/docker-entrypoint.sh /usr/lo
 RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod g=u /etc/passwd && \
     chmod 0775 /usr/local/bin/docker-entrypoint.sh
+
+RUN rm -rf /usr/share/elasticsearch/jdk
 
 COPY scripts/ /opt/elasticsearch/scripts/
 RUN chmod +x /opt/elasticsearch/scripts/*

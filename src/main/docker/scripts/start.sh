@@ -15,5 +15,5 @@
 # limitations under the License.
 #
 
-export JAVA_HOME=/usr/share/elasticsearch/jdk
+export JAVA_HOME=/usr/lib64/jvm/java-11-openjdk-11/
 exec /usr/local/bin/docker-entrypoint.sh "eswrapper"
