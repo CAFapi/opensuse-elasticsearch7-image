@@ -20,6 +20,8 @@ ARG DOCKER_HUB_PUBLIC=docker.io
 # Reference the official Elasticsearch 7 image
 FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
 
+RUN rm -rf /usr/share/elasticsearch/jdk
+
 #
 # The actual image definition
 #
@@ -46,7 +48,7 @@ RUN groupadd -g 1000 elasticsearch && \
 WORKDIR /usr/share/elasticsearch
 
 COPY --from=es7-image --chown=1000:0 /usr/share/elasticsearch/ /usr/share/elasticsearch/
-RUN ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
+RUN JAVA_HOME=${JRE_HOME} ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
     /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 # Configure logging
@@ -59,8 +61,6 @@ COPY --from=es7-image --chown=1000:0 /usr/local/bin/docker-entrypoint.sh /usr/lo
 RUN chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod g=u /etc/passwd && \
     chmod 0775 /usr/local/bin/docker-entrypoint.sh
-
-RUN rm -rf /usr/share/elasticsearch/jdk
 
 COPY scripts/ /opt/elasticsearch/scripts/
 RUN chmod +x /opt/elasticsearch/scripts/*
