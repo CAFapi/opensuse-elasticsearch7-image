@@ -20,6 +20,8 @@ ARG DOCKER_HUB_PUBLIC=docker.io
 # Reference the official Elasticsearch 7 image
 FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
 
+RUN rm -rf /usr/share/elasticsearch/jdk
+
 #
 # The actual image definition
 #
@@ -30,10 +32,7 @@ RUN zypper -n refresh && \
 
 ENV ELASTIC_CONTAINER=true
 
-COPY --from=es7-image /usr/share/elasticsearch/jdk/ /usr/share/elasticsearch/jdk/
-# Copy java certs and set link to them
 COPY --from=es7-image /etc/pki/ca-trust /etc/pki/ca-trust
-RUN ln -sf /etc/pki/ca-trust/extracted/java/cacerts /usr/share/elasticsearch/jdk/lib/security/cacerts
 
 # Install packages
 RUN zypper -n install which hostname netcat-openbsd unzip wget
@@ -49,7 +48,7 @@ RUN groupadd -g 1000 elasticsearch && \
 WORKDIR /usr/share/elasticsearch
 
 COPY --from=es7-image --chown=1000:0 /usr/share/elasticsearch/ /usr/share/elasticsearch/
-RUN ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
+RUN JAVA_HOME=${JRE_HOME} ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
     /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 # Configure logging
