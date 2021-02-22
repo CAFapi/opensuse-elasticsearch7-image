@@ -35,7 +35,7 @@ import java.io.IOException;
 public final class ContainerIT
 {
     private final static RestHighLevelClient client = getElasticsearchClient();
-    
+
     @BeforeClass
     public static void setup() throws IOException
     {
@@ -45,27 +45,28 @@ public final class ContainerIT
     }
 
     @Test
-    public void testIndexCreation() throws IOException {
+    public void testIndexCreation() throws IOException
+    {
         final CreateIndexRequest request = new CreateIndexRequest("container_test");
-        request.source("{\n" +
-           "    \"settings\" : {\n" +
-           "        \"number_of_shards\" : 1,\n" +
-           "        \"number_of_replicas\" : 0\n" +
-           "    },\n" +
-           "    \"mappings\" : {\n" +
-           "        \"properties\" : {\n" +
-           "            \"message\" : { \"type\" : \"text\" }\n" +
-           "        }\n" +
-           "    }" +
-           "}", XContentType.JSON);
+        request.source("{\n"
+            + "    \"settings\" : {\n"
+            + "        \"number_of_shards\" : 1,\n"
+            + "        \"number_of_replicas\" : 0\n"
+            + "    },\n"
+            + "    \"mappings\" : {\n"
+            + "        \"properties\" : {\n"
+            + "            \"message\" : { \"type\" : \"text\" }\n"
+            + "        }\n"
+            + "    }"
+            + "}", XContentType.JSON);
         final CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
         assertTrue("Index response was not acknowledged", createIndexResponse.isAcknowledged());
         assertTrue("All shards were not copied", createIndexResponse.isShardsAcknowledged());
     }
 
     private static RestHighLevelClient getElasticsearchClient()
-    {        
+    {
         return new RestHighLevelClient(RestClient
-           .builder(new HttpHost(System.getenv("ELASTICSEARCH_HOST"), Integer.parseInt(System.getenv("ELASTICSEARCH_PORT")), "http")));
+            .builder(new HttpHost(System.getenv("ELASTICSEARCH_HOST"), Integer.parseInt(System.getenv("ELASTICSEARCH_PORT")), "http")));
     }
 }
