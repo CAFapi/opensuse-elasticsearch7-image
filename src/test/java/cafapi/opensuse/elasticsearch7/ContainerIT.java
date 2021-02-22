@@ -32,7 +32,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class ContainerIT
+public final class ContainerIT
 {
     private final static RestHighLevelClient client = getElasticsearchClient();
     
