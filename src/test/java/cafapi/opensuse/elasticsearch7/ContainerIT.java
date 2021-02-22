@@ -63,7 +63,7 @@ public final class ContainerIT
         assertTrue("All shards were not copied", createIndexResponse.isShardsAcknowledged());
     }
 
-    static RestHighLevelClient getElasticsearchClient()
+    private static RestHighLevelClient getElasticsearchClient()
     {        
         return new RestHighLevelClient(RestClient
            .builder(new HttpHost(System.getenv("ELASTICSEARCH_HOST"), Integer.parseInt(System.getenv("ELASTICSEARCH_PORT")), "http")));
