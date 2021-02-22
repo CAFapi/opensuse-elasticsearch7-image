@@ -209,6 +209,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
                     <environmentVariables>
                         <ELASTICSEARCH_HOST>${docker.host.address}</ELASTICSEARCH_HOST>
                         <ELASTICSEARCH_PORT>${es.http.port}</ELASTICSEARCH_PORT>
