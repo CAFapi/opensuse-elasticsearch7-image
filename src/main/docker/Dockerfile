@@ -18,7 +18,7 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 # Reference the official Elasticsearch 7 image
-FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.0 AS es7-image
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2 AS es7-image
 
 RUN rm -rf /usr/share/elasticsearch/jdk
 
