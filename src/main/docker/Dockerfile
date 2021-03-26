@@ -1,5 +1,5 @@
 #
-# Copyright 2019-2020 Micro Focus or one of its affiliates.
+# Copyright 2019-2021 Micro Focus or one of its affiliates.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ RUN rm -rf /usr/share/elasticsearch/jdk
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-jre11-3.3.0-SNAPSHOT
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre11:3
 
 RUN zypper -n refresh && \
     zypper -n update
