@@ -23,7 +23,7 @@
 
     <groupId>com.github.cafapi</groupId>
     <artifactId>opensuse-elasticsearch7-image</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.4.1-383</version>
     <packaging>pom</packaging>
 
     <name>openSUSE Elasticsearch7 image</name>
