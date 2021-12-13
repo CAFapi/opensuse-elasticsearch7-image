@@ -20,7 +20,8 @@ ARG DOCKER_HUB_PUBLIC=docker.io
 # Reference the official Elasticsearch 7 image
 FROM docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2 AS es7-image
 
-RUN rm -rf /usr/share/elasticsearch/jdk
+RUN rm -rf /usr/share/elasticsearch/jdk \
+           /usr/share/elasticsearch/lib/log4j-*
 
 #
 # The actual image definition
@@ -48,12 +49,14 @@ RUN groupadd -g 1000 elasticsearch && \
 WORKDIR /usr/share/elasticsearch
 
 COPY --from=es7-image --chown=1000:0 /usr/share/elasticsearch/ /usr/share/elasticsearch/
-RUN JAVA_HOME=${JRE_HOME} ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
-    /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 # Configure logging
 COPY log4j2.properties /usr/share/elasticsearch/config
 COPY /maven/*.jar /usr/share/elasticsearch/lib/
+
+# Install ICU Analysis plugin
+RUN JAVA_HOME=${JRE_HOME} ES_JAVA_OPTS="$(echo ${https_proxy} | sed -E 's/^.*:\/\/(.*):([0-9]*).*/-Dhttps.proxyHost=\1 -Dhttps.proxyPort=\2/')" \
+    /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 ENV PATH=/usr/share/elasticsearch/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 

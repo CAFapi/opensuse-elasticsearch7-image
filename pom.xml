@@ -23,7 +23,7 @@
 
     <groupId>com.github.cafapi</groupId>
     <artifactId>opensuse-elasticsearch7-image</artifactId>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.4.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>openSUSE Elasticsearch7 image</name>
@@ -72,6 +72,21 @@
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.16.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.16.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
