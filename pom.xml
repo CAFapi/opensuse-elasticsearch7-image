@@ -225,6 +225,16 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>use-default-fixed-ports</id>
+            <properties>
+                <es.http.port>19200</es.http.port>
+                <es.client.port>19300</es.client.port>
+            </properties>
+        </profile>
+    </profiles>
+
     <scm>
         <connection>scm:git:https://github.com/CAFapi/opensuse-elasticsearch7-image.git</connection>
         <developerConnection>scm:git:https://github.com/CAFapi/opensuse-elasticsearch7-image.git</developerConnection>
